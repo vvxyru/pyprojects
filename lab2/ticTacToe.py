@@ -246,5 +246,4 @@ def main():
     print("\n",myBoard.isWinner(2), "Player 2\n")
     print("\n",myBoard.boardFull(),"\n")
 
-
-main()
+# main()
