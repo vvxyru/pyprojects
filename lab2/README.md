@@ -14,4 +14,5 @@ You can find each bug by searching for 'BUG HERE', should be like 'ctrl + f' or 
 
 If you want to just see the test cases, uncomment the last line in ticTacToe.py and comment the last line in ticTacToeMain (vice versa to run the actual game).
 
-Let me know about any questions about the code or whatever, plus I did this without actually using chatGpt
+Let me know about any questions about the code or whatever, plus I did this without actually using ChatGpt
+(OR if I messed up anywhere because I just finished this in like an hour and got lazy)
