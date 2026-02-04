@@ -26,6 +26,7 @@ firm_list: list[dict[str, str | int]] = []
 # just a dictionary of all the items instead of a list
 location_list: dict[str, float] = {}
 
+
 def get_property_info() -> None:
 
     # This function transforms all the properties in the list to a list of
@@ -44,7 +45,7 @@ def get_property_info() -> None:
                 "location": location,
                 "rooms": int(rooms),
                 "area": float(area),
-                "owner_id": int(firm_id)
+                "owner_id": int(firm_id),
             }
 
             property_list.append(property_info)
@@ -59,7 +60,7 @@ def get_firm_info() -> None:
 
         for line in lines[1:]:
             firm_id, name, date_est = line.strip().split(",")
-            
+
             firm_info = {
                 "owner_id": int(firm_id),
                 "name": name,
@@ -94,7 +95,8 @@ def get_firm_id(firm_name: str) -> int:
     for firm in firm_list:
         if firm["name"] == firm_name:
             return int(firm["owner_id"])
-    return -1   # Default value, should never return though
+
+    return -1  # Default value, should never return though
 
 
 def get_firm_date(firm_name: str) -> int:
@@ -104,7 +106,8 @@ def get_firm_date(firm_name: str) -> int:
         if firm["name"] == firm_name:
             # Annoying IDE warning, had to put 'int()'
             return int(firm["date_est"])
-    return -1   # Default value, should never return though
+
+    return -1  # Default value, should never return though
 
 
 def get_property_count(firm_name: str, location_name: str) -> int:
@@ -112,11 +115,12 @@ def get_property_count(firm_name: str, location_name: str) -> int:
     property_count = 0
 
     firm_id = get_firm_id(firm_name)
-    
+
     # I'm using 'place' because 'property' is a keyword lol
     for place in property_list:
         if place["owner_id"] == firm_id and place["location"] == location_name:
-            property_count+= 1
+            property_count += 1
+
     return property_count
 
 
@@ -125,11 +129,12 @@ def get_total_area(firm_name: str, location_name: str) -> float:
     total_area = 0.0
 
     firm_id = get_firm_id(firm_name)
-    
+
     # I'm using 'place' because 'property' is a keyword lol
     for place in property_list:
         if place["owner_id"] == firm_id and place["location"] == location_name:
             total_area += float(place["area"])
+
     return total_area
 
 
@@ -139,13 +144,14 @@ def get_area_value(firm_name: str, location_name: str) -> float:
     total_price = 0.0
 
     firm_id = get_firm_id(firm_name)
-    
+
     for place in property_list:
         if place["owner_id"] == firm_id and place["location"] == location_name:
             location_area = float(place["area"])
             location_price_per_sqft = float(location_list[location_name])
 
             total_price += location_area * location_price_per_sqft
+
     return total_price
 
 
@@ -154,10 +160,11 @@ def get_total_properties(firm_name: str) -> int:
     total_properties = 0
 
     firm_id = get_firm_id(firm_name)
-    
+
     for place in property_list:
         if place["owner_id"] == firm_id:
-            total_properties+= 1
+            total_properties += 1
+
     return total_properties
 
 
@@ -194,9 +201,9 @@ def location_asset_summary(firm_name: str, location_name: str) -> None:
 
 def print_title(firm_name: str) -> None:
     owner_title = f"<< {firm_name} >>"
-    print(f"{owner_title:^40}")
-
     owner_date = f"ESTD: {get_firm_date(firm_name)}"
+
+    print(f"{owner_title:^40}")
     print(f"{owner_date:^40}")
 
 
@@ -215,7 +222,6 @@ def main() -> None:
     for location in location_list:
         location_asset_summary(firm, location)
 
-
     # Getting the last bit of the summary
     total_properties = get_total_properties(firm)
     total_networth = get_networth(firm)
@@ -226,4 +232,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-
